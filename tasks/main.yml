@@ -1,0 +1,10 @@
+---
+- name: Init swarm cluster
+  import_tasks: init.yml
+  when: swarm_node == 'init'
+
+- name: Join nodes to swarm cluster
+  import_tasks: join.yml
+  when:
+    - swarm_node != 'init'
+    - inventory_hostname not in groups['swarm__g_' + swarm_name]

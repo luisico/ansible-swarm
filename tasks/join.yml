@@ -1,0 +1,7 @@
+---
+- name: Join manager and worker nodes
+  docker_swarm:
+    state: join
+    advertise_addr: '{{swarm_addr | default(omit)}}'
+    remote_addrs: "{{groups['swarm__g_' + swarm_name] | map('extract', hostvars, ['ansible_' + swarm_addr, 'ipv4', 'address']) | list}}"
+    join_token: "{{hostvars[groups['swarm__g_' + swarm_name][0]].swarm_join_tokens[swarm_node | title]}}"
