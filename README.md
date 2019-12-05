@@ -101,7 +101,7 @@ swarm_node=worker
 
 TODO
 ----
-- listen address is required
+- If first manager needs rebuilt from scratch it will create a new swarm, while it should just join other managers if present.
 
 License
 -------
