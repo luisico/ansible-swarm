@@ -1,4 +1,7 @@
 ---
+- name: Install docker python module
+  pip: name=docker state=present
+
 - name: Init swarm cluster
   import_tasks: init.yml
   when: swarm_node == 'init'
