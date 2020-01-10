@@ -2,7 +2,7 @@
 - name: Init swarm
   docker_swarm:
     state: present
-    advertise_addr: '{{swarm_addr | default(omit)}}'
+    advertise_addr: '{{swarm_addr}}'
   register: swarm__r_init
 
 - name: Save join tokens

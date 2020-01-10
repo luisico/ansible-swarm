@@ -1,4 +1,4 @@
 ---
 swarm_node:
-swarm_addr:
+swarm_addr: '{{ansible_default_ipv4.alias}}'
 swarm_name: swarm-cluster
