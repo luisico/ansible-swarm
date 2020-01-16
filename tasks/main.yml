@@ -6,6 +6,15 @@
   import_tasks: init.yml
   when: swarm_node == 'init'
 
+- name: Add nodes to /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^{{hostvars[item]["ansible_" + hostvars[item].swarm_addr].ipv4.address}} .*'
+    line: '{{hostvars[item]["ansible_" + hostvars[item].swarm_addr].ipv4.address}} {{hostvars[item].ansible_hostname}} {{hostvars[item].ansible_hostname}}.{{swarm_internal_domain | default(hostvars[item].ansible_domain)}}'
+    state: present
+  loop: '{{swarm_internal_hosts}}'
+  when: swarm_node != 'init'
+
 - name: Join nodes to swarm cluster
   import_tasks: join.yml
   when:
