@@ -2,3 +2,5 @@
 swarm_node:
 swarm_addr: '{{ansible_default_ipv4.alias}}'
 swarm_name: swarm-cluster
+swarm_internal_hosts: []
+swarm_internal_domain:
