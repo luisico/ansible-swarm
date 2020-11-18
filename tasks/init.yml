@@ -11,3 +11,4 @@
 
 - name: Add node to its dynamic swarm group
   group_by: key='swarm__g_{{swarm_name}}'
+  changed_when: false
