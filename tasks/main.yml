@@ -1,6 +1,8 @@
 ---
 - name: Install docker python module
-  pip: name=docker state=present
+  pip:
+    name: docker
+    state: present
 
 - name: Init swarm cluster
   import_tasks: init.yml
@@ -9,10 +11,10 @@
 - name: Add nodes to /etc/hosts
   lineinfile:
     dest: /etc/hosts
-    regexp: '^{{hostvars[item]["ansible_" + hostvars[item].swarm_addr].ipv4.address}} .*'
-    line: '{{hostvars[item]["ansible_" + hostvars[item].swarm_addr].ipv4.address}} {{hostvars[item].ansible_hostname}} {{hostvars[item].ansible_hostname}}.{{swarm_internal_domain | default(hostvars[item].ansible_domain)}}'
+    regexp: '^{{ hostvars[item]["ansible_" + hostvars[item].swarm_addr].ipv4.address }} .*'
+    line: '{{ hostvars[item]["ansible_" + hostvars[item].swarm_addr].ipv4.address }} {{ hostvars[item].ansible_hostname }} {{ hostvars[item].ansible_hostname }}.{{ swarm_internal_domain | default(hostvars[item].ansible_domain) }}'   # noqa line-length
     state: present
-  loop: '{{swarm_internal_hosts}}'
+  loop: '{{ swarm_internal_hosts }}'
   when: swarm_node != 'init'
 
 - name: Join nodes to swarm cluster

@@ -2,6 +2,6 @@
 - name: Join manager and worker nodes
   docker_swarm:
     state: join
-    advertise_addr: '{{swarm_addr}}'
-    remote_addrs: "{{groups['swarm__g_' + swarm_name] | map('extract', hostvars, ['ansible_all_ipv4_addresses']) | ipaddr((hostvars[inventory_hostname]['ansible_' + swarm_addr].ipv4.address + '/' + hostvars[inventory_hostname]['ansible_' + swarm_addr].ipv4.netmask) | ipaddr('address/prefix')) | flatten}}"
-    join_token: "{{hostvars[groups['swarm__g_' + swarm_name][0]].swarm_join_tokens[swarm_node | title]}}"
+    advertise_addr: '{{ swarm_addr }}'
+    remote_addrs: "{{ groups['swarm__g_' + swarm_name] | map('extract', hostvars, ['ansible_all_ipv4_addresses']) | ipaddr((hostvars[inventory_hostname]['ansible_' + swarm_addr].ipv4.address + '/' + hostvars[inventory_hostname]['ansible_' + swarm_addr].ipv4.netmask) | ipaddr('address/prefix')) | flatten }}"   # noqa line-length
+    join_token: "{{ hostvars[groups['swarm__g_' + swarm_name][0]].swarm_join_tokens[swarm_node | title] }}"

@@ -2,13 +2,14 @@
 - name: Init swarm
   docker_swarm:
     state: present
-    advertise_addr: '{{swarm_addr}}'
+    advertise_addr: '{{ swarm_addr }}'
   register: swarm__r_init
 
 - name: Save join tokens
   set_fact:
-    swarm_join_tokens: '{{swarm__r_init.swarm_facts.JoinTokens}}'
+    swarm_join_tokens: '{{ swarm__r_init.swarm_facts.JoinTokens }}'
 
 - name: Add node to its dynamic swarm group
-  group_by: key='swarm__g_{{swarm_name}}'
+  group_by:
+    key: ='swarm__g_{{ swarm_name }}'
   changed_when: false
